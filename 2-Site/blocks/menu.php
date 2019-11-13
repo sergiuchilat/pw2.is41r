@@ -1,6 +1,6 @@
 <ul>
-    <li><a href="index.php">HOME</a></li>
-    <li><a href="news.php">News</a></li>
-    <li><a href="photos.php">Photos</a></li>
-    <li><a href="contact.php">Contact</a></li>
+    <li><a href="index.php?page=home">HOME</a></li>
+    <li><a href="index.php?page=news">News</a></li>
+    <li><a href="index.php?page=photos">Photos</a></li>
+    <li><a href="index.php?page=contact">Contact</a></li>
 </ul>
