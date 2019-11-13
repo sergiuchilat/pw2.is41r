@@ -1,23 +1,5 @@
 <?
-$news = [
-    [
-        'url' => 'news1.php',
-        'title' => 'News 1',
-        'description' => '111 Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description '
-    ],
-    [
-        'url' => 'news2.php',
-        'title' => 'News 2',
-        'description' => '222 Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description '
-    ],
-    [
-        'url' => 'news3.php',
-        'title' => 'News 3',
-        'description' => '333 Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description  Description '
-    ]
-];
-
-
+include 'database/news.php'
 ?>
 <section class="news">
     <?
@@ -25,7 +7,7 @@ $news = [
         <article>
             <h2><? echo $item['title'];?></h2>
             <p><?=$item['description'];?></p>
-            <a href="<?=$item['url'];?>">more</a>
+            <a href="index.php?page=news-details&id=<?=$item['id'];?>">more</a>
         </article>
     <?}
     ?>
