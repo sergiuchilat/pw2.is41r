@@ -2,7 +2,7 @@
 
 if(isset($_POST['name'])){
     if($_POST['name'] != '') {
-        if(mysqli_query($connection, "UPDATE students SET name = '{$_POST['name']}' WHERE id={$_GET['id']}")){
+        if(mysqli_query($connection, "UPDATE `groups` SET name = '{$_POST['name']}' WHERE id={$_GET['id']}")){
             $msg = 'Update succes';
             $msgClass = 'success';
         } else {
@@ -15,7 +15,7 @@ if(isset($_POST['name'])){
     }
 }
 
-$result = mysqli_query($connection, "SELECT id, name FROM students WHERE id={$_GET['id']}");
+$result = mysqli_query($connection, "SELECT id, name FROM `groups` WHERE id={$_GET['id']}");
 if($result){
     $element = mysqli_fetch_assoc($result);
 }
@@ -24,7 +24,7 @@ if($result){
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-      <li class="breadcrumb-item"><a href="?module=students&action=read">Students</a></li>
+      <li class="breadcrumb-item"><a href="?module=groups&action=read">Groups</a></li>
       <li class="breadcrumb-item active" aria-current="page">Update</li>
     </ol>
   </nav>
