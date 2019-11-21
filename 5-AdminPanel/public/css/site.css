@@ -1,0 +1,25 @@
+nav ul{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li{
+    border: 1px solid red;
+    text-align: center;
+}
+
+
+section.news article{
+    display: grid;
+    grid-template-rows: 30px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+section.news article h2{
+    font-size: 16px;
+    color: blue;
+}
+
