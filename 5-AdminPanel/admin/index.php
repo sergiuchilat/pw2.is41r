@@ -1,5 +1,8 @@
 <?
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
+
 require_once 'core/functions.php';
 $connection = mysqli_connect('localhost', 'root', '', 'is41r');
 
@@ -11,7 +14,7 @@ $userEmail = 'admin@is41r.local';
 $userPassword = '1234';
 
 if($_GET['module'] === 'authorization' && $_GET['action'] === 'logout'){
-    session_destroy();
+    //session_destroy();
     header('Location:?module=authorization&action=login');
 }
 

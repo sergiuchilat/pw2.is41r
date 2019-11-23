@@ -37,7 +37,7 @@ $result = mysqli_query($connection, "
           <p class="card-text">
             Group: <?=$element['group_name']?:'Not selected';?>
           </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <a href="?module=cart&action=add&id=<?=$element['id'];?>" class="btn btn-primary">To Cart</a>
         </div>
       </div>
         <?

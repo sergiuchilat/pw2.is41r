@@ -2,12 +2,25 @@
 
 if(isset($_POST['name'])){
     if($_POST['name'] != '') {
+        $result = mysqli_query($connection, "SELECT avatar FROM students WHERE id={$_GET['id']}");
+        if($result){
+            $student = mysqli_fetch_assoc($result);
+            echo '../public/img/user_avatar/' . $student['avatar'];
+            if(!empty($student['avatar'])  && file_exists('../public/img/user_avatar/' . $student['avatar'])){
+                echo 'file exists';
+                unlink('../public/img/user_avatar/' . $student['avatar']);
+            }
+        }
+
+        $filename = microtime() . '.' . getExtension($_FILES['photo']['name']);
+
         if(mysqli_query($connection, "
                 UPDATE 
                     students 
                 SET 
                     name = '{$_POST['name']}', 
-                    group_id = {$_POST['group']} 
+                    group_id = {$_POST['group']}, 
+                    avatar = '{$filename}'
                 WHERE 
                 id={$_GET['id']}
             ")){
@@ -17,13 +30,15 @@ if(isset($_POST['name'])){
             $msg = 'Update ERROR';
             $msgClass = 'danger';
         }
+
+        move_uploaded_file($_FILES['photo']['tmp_name'], '../public/img/user_avatar/' . $filename);
     } else {
         $msg = 'Error. Name can not be empty';
         $msgClass = 'danger';
     }
 }
 
-$result = mysqli_query($connection, "SELECT id, name, group_id FROM students WHERE id={$_GET['id']}");
+$result = mysqli_query($connection, "SELECT id, name, group_id, avatar FROM students WHERE id={$_GET['id']}");
 if($result){
     $student = mysqli_fetch_assoc($result);
 }
@@ -42,7 +57,7 @@ $resultGroups = mysqli_query($connection, "SELECT id, name FROM `groups`");
 </div>
 
 <div class="row">
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
     <div class="alert alert-<?=$msgClass;?>" role="alert">
         <?=$msg;?>
     </div>
@@ -62,6 +77,16 @@ $resultGroups = mysqli_query($connection, "SELECT id, name FROM `groups`");
           <? }?>
       </select>
       <small id="emailHelp" class="form-text text-muted">Group name.</small>
+    </div>
+
+    <div class="form-group">
+      <img src="../public/img/user_avatar/<?=$student['avatar'];?>" alt="">
+      <label for="photo">Photo</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="photo" name="photo" accept="image/jpeg,image/png">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+
     </div>
     <input type="submit" class="btn btn-primary" value="save">
   </form>

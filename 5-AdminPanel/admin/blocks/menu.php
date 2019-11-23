@@ -31,6 +31,9 @@
         </div>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="?module=orders&action=list" tabindex="-1">Orders</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="?module=authorization&action=logout" tabindex="-1">Logout</a>
       </li>
     </ul>
