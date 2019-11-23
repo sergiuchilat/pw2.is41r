@@ -1,16 +1,21 @@
 <?
 if(isset($_POST['name'])){
     if($_POST['name'] != '') {
+        $filename = microtime() . '.' . getExtension($_FILES['photo']['name']);
         if(mysqli_query($connection,
             "
                 INSERT INTO students 
                 SET 
                     name = '{$_POST['name']}',
-                    group_id = '{$_POST['group']}'
+                    group_id = '{$_POST['group']}',
+                    avatar = '{$filename}'
                  "
         )){
             $msg = 'Succesfuly added!';
             $msgClass = 'success';
+
+
+            move_uploaded_file($_FILES['photo']['tmp_name'], '../public/img/user_avatar/' . $filename);
         } else {
             $msg = 'Add error!';
             $msgClass = 'danger';
@@ -36,7 +41,7 @@ $resultGroups = mysqli_query($connection, "SELECT id, name FROM `groups`");
 </div>
 
 <div class="row">
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
 
     <div class="alert alert-<?=$msgClass;?>" role="alert">
         <?=$msg;?>
@@ -58,6 +63,17 @@ $resultGroups = mysqli_query($connection, "SELECT id, name FROM `groups`");
       </select>
       <small id="emailHelp" class="form-text text-muted">Group name.</small>
     </div>
+
+    <div class="form-group">
+      <label for="photo">Photo</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="photo" name="photo">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+      </div>
+
+    </div>
+
+
 
     <input type="submit" class="btn btn-primary" value="add">
   </form>

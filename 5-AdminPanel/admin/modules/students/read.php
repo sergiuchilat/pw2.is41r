@@ -10,6 +10,7 @@ $result = mysqli_query($connection, "
   SELECT 
     students.id, 
     students.name,
+    students.avatar,
     groups.NAME AS group_name
     
   FROM 
@@ -36,6 +37,7 @@ $result = mysqli_query($connection, "
   <table class="table">
     <thead>
     <tr>
+      <th>Avatar</th>
       <th>ID</th>
       <th>Name</th>
       <th>Group name</th>
@@ -47,8 +49,15 @@ $result = mysqli_query($connection, "
     <tbody>
     <?
     while($element = mysqli_fetch_assoc($result)){
+
+      if(empty($element['avatar']) || !file_exists('../public/img/user_avatar/' . $element['avatar'])){
+          $element['avatar'] = 'no_image.jpg';
+      }
         ?>
       <tr>
+        <td>
+          <img src="../public/img/user_avatar/<?=$element['avatar'];?>" alt="">
+        </td>
         <td><?=$element['id'];?></td>
         <td><?=$element['name'];?></td>
         <td><?=$element['group_name'];?></td>

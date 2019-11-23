@@ -1,6 +1,6 @@
 <?
 session_start();
-
+require_once 'core/functions.php';
 $connection = mysqli_connect('localhost', 'root', '', 'is41r');
 
 if(!$_SESSION['userAuthorized'] && $_GET['module'] !== 'authorization'){
